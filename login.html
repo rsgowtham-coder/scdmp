@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | SCDMP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 class="center">Citizen Login</h2>
+
+<form class="box" id="loginForm">
+    <div id="loginStep">
+        <label>Email / Mobile</label>
+        <input type="text" id="emailMobile" required>
+
+        <label>Password</label>
+        <input type="password" id="password" required>
+
+        <button type="button" class="btn" onclick="verifyCredentials()">Login</button>
+    </div>
+
+    <div id="otpStep" style="display: none;">
+        <p style="text-align: center; margin-bottom: 20px;">OTP sent to your registered mobile number</p>
+        
+        <label>Enter 6-Digit OTP</label>
+        <input type="text" id="otpInput" maxlength="6" placeholder="000000" pattern="[0-9]{6}" required>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn" onclick="verifyOTP()" style="flex: 1;">Verify OTP</button>
+            <button type="button" class="btn" onclick="resendOTP()" style="flex: 1; background-color: #6c757d;">Resend OTP</button>
+        </div>
+
+        <button type="button" class="btn" onclick="backToLogin()" style="background-color: #dc3545;">Back</button>
+    </div>
+</form>
+
+<script>
+let credentialsVerified = false;
+
+function verifyCredentials() {
+    const emailMobile = document.getElementById('emailMobile').value;
+    const password = document.getElementById('password').value;
+
+    // Basic validation
+    if (!emailMobile || !password) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    // Show message and proceed to OTP
+    alert('Login credentials verified. OTP sent to your mobile number.');
+    
+    // Hide login step and show OTP step
+    document.getElementById('loginStep').style.display = 'none';
+    document.getElementById('otpStep').style.display = 'block';
+    credentialsVerified = true;
+}
+
+function verifyOTP() {
+    const otp = document.getElementById('otpInput').value;
+
+    // Basic validation
+    if (!otp || otp.length !== 6) {
+        alert('Please enter a valid 6-digit OTP');
+        return;
+    }
+
+    // Check if OTP matches (example: 123456)
+    if (otp === '123456') {
+        alert('OTP verified successfully! Redirecting to dashboard...');
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Invalid OTP. Please try again.');
+        document.getElementById('otpInput').value = '';
+    }
+}
+
+function resendOTP() {
+    alert('OTP has been resent to your mobile number');
+    document.getElementById('otpInput').value = '';
+    document.getElementById('otpInput').focus();
+}
+
+function backToLogin() {
+    document.getElementById('loginStep').style.display = 'block';
+    document.getElementById('otpStep').style.display = 'none';
+    document.getElementById('emailMobile').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('otpInput').value = '';
+    credentialsVerified = false;
+}
+</script>
+
+</body>
+</html>

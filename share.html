@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Share Document | SCDMP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 class="center">Grant Document Access</h2>
+
+<form class="box">
+    <label>Organization</label>
+    <select id="orgSelect" onchange="updateDocuments(); updateOptions()">
+        <option value="bank">Bank</option>
+        <option value="government">Government Portal</option>
+    </select>
+
+    <label>Select Document</label>
+    <select id="documentSelect">
+        <!-- Documents will be dynamically updated -->
+        <option value="pan">PAN</option>
+        <option value="income">Income Certificate</option>
+        <option value="passport">Passport</option>
+        <option value="driving">Driving License</option>
+        <option value="insurance">Insurance</option>
+        <option value="residential">Residential Proof</option>
+    </select>
+
+    <label>Share With</label>
+    <select id="shareOptions">
+        <!-- Options will be dynamically updated -->
+        <option value="officer">Loan Officer</option>
+        <option value="manager">Branch Manager</option>
+    </select>
+
+    <label>Access Duration</label>
+    <select id="durationSelect">
+        <option>10 Minutes</option>
+        <option>30 Minutes</option>
+        <option>1 Hour</option>
+        <option>12 Hours</option>
+        <option>24 Hours</option>
+    </select>
+
+    <button class="btn">Grant Access</button>
+    <button class="btn">Revoke Access</button>
+</form>
+
+<p class="note">Access is token-based and expires automatically.</p>
+
+<script>
+// Documents for Bank
+const bankDocuments = [
+    { value: 'pan', label: 'PAN' },
+    { value: 'income', label: 'Income Certificate' },
+    { value: 'passport', label: 'Passport' },
+    { value: 'driving', label: 'Driving License' },
+    { value: 'insurance', label: 'Insurance' },
+    { value: 'residential', label: 'Residential Proof' },
+    { value: 'bank_statement', label: 'Bank Statement' }
+];
+
+// Documents for Government Portal
+const governmentDocuments = [
+    { value: 'aadhaar', label: 'Aadhaar' },
+    { value: 'pan', label: 'PAN' },
+    { value: 'income', label: 'Income Certificate' },
+    { value: 'birth', label: 'Birth Certificate' },
+    { value: 'passport', label: 'Passport' },
+    { value: 'driving', label: 'Driving License' },
+    { value: 'death', label: 'Death Certificate' },
+    { value: 'voter', label: 'Voter ID' },
+    { value: 'education', label: 'Educational Certificate' },
+    { value: 'marriage', label: 'Marriage Certificate' }
+];
+
+function updateDocuments() {
+    const orgSelect = document.getElementById('orgSelect').value;
+    const documentSelect = document.getElementById('documentSelect');
+    let documents = [];
+    
+    if (orgSelect === 'bank') {
+        documents = bankDocuments;
+    } else if (orgSelect === 'government') {
+        documents = governmentDocuments;
+    }
+    
+    // Clear and repopulate documents
+    documentSelect.innerHTML = '';
+    documents.forEach(doc => {
+        const option = document.createElement('option');
+        option.value = doc.value;
+        option.textContent = doc.label;
+        documentSelect.appendChild(option);
+    });
+}
+
+function updateOptions() {
+    const orgSelect = document.getElementById('orgSelect').value;
+    const shareOptions = document.getElementById('shareOptions');
+    
+    // Clear existing options
+    shareOptions.innerHTML = '';
+    
+    if (orgSelect === 'bank') {
+        // Fewer options for Bank
+        shareOptions.innerHTML = `
+            <option value="officer">Loan Officer</option>
+            <option value="manager">Branch Manager</option>
+        `;
+    } else if (orgSelect === 'government') {
+        // More options for Government Portal
+        shareOptions.innerHTML = `
+            <option value="revenue">Revenue Department</option>
+            <option value="health">Health Department</option>
+            <option value="education">Education Department</option>
+            <option value="welfare">Social Welfare Department</option>
+            <option value="land">Land Records Department</option>
+            <option value="police">Police Department</option>
+            <option value="tax">Tax Department</option>
+            <option value="electoral">Electoral Department</option>
+        `;
+    }
+}
+
+// Initialize on page load
+window.onload = function() {
+    updateDocuments();
+    updateOptions();
+};
+</script>
+
+</body>
+</html>

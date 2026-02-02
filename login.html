@@ -23,11 +23,11 @@
         <p style="text-align: center; margin-bottom: 20px;">OTP sent to your registered mobile number</p>
         
         <label>Enter 6-Digit OTP</label>
-        <input type="text" id="otpInput" maxlength="6" placeholder="000000" pattern="[0-9]{6}" required>
+        <input type="text" id="otpInput" maxlength="6" placeholder="XXXXXX" pattern="[0-9]{6}" required>
 
         <div style="display: flex; gap: 10px;">
             <button type="button" class="btn" onclick="verifyOTP()" style="flex: 1;">Verify OTP</button>
-            <button type="button" class="btn" onclick="resendOTP()" style="flex: 1; background-color: #6c757d;">Resend OTP</button>
+            <button type="button" class="btn" onclick="resendOTP()" style="flex: 1; background-color: #123a5d;">Resend OTP</button>
         </div>
 
         <button type="button" class="btn" onclick="backToLogin()" style="background-color: #dc3545;">Back</button>
@@ -65,8 +65,8 @@ function verifyOTP() {
         return;
     }
 
-    // Check if OTP matches (example: 123456)
-    if (otp === '123456') {
+    // Check if OTP matches (example: 000420)
+    if (otp === '000420') {
         alert('OTP verified successfully! Redirecting to dashboard...');
         window.location.href = 'dashboard.html';
     } else {

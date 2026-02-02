@@ -6,9 +6,22 @@
 </head>
 <body>
 
-<header>
+<header style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#f8f9fa;">
     <h1>Citizen Dashboard</h1>
+    <nav>
+        <a href="#" id="menuBtn" class="btn" style="margin-right:8px;">Menu</a>
+        <a href="profile.html" class="btn" style="margin-right:8px;">Profile</a>
+        <a href="login.html" class="btn" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+    </nav>
 </header>
+
+<!-- Menu dropdown (toggled by Menu button) -->
+<div id="menuDropdown" style="display:none;position:absolute;top:64px;right:20px;background:#fff;border:1px solid #ddd;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+    <a href="dashboard.html" class="btn" style="display:block;margin-bottom:6px;">Dashboard</a>
+    <a href="upload.html" class="btn" style="display:block;margin-bottom:6px;">Upload Document</a>
+    <a href="documents.html" class="btn" style="display:block;margin-bottom:6px;">My Documents</a>
+    <a href="schemes.html" class="btn" style="display:block;">Government Schemes</a>
+</div>
 
 <div class="container">
     <div class="card">
@@ -31,3 +44,22 @@
 
 </body>
 </html>
+
+<script>
+// Toggle menu dropdown
+document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('menuBtn');
+    var dropdown = document.getElementById('menuDropdown');
+    if (btn) {
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        });
+    }
+    window.addEventListener('click', function(e){
+        if (!e.target.closest('#menuBtn') && !e.target.closest('#menuDropdown')) {
+            if (dropdown) dropdown.style.display = 'none';
+        }
+    });
+});
+</script>
